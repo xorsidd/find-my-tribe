@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - FindMyTribe</title>
+    <link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="home.html" class="brand-logo">
+                <div class="brand-logo-icon">T</div>
+                <span class="brand-logo-text" data-i18n="app.name">FindMyTribe</span>
+            </a>
+            <a href="home.html" class="nav-item">🏠 <span data-i18n="nav.home">Home</span></a>
+            <a href="mytribes.html" class="nav-item">👥 <span data-i18n="nav.mytribes">My Tribes</span></a>
+            <a href="discover.html" class="nav-item active">🔍 <span data-i18n="nav.discover">Discover</span></a>
+            <a href="study.html" class="nav-item">📚 <span data-i18n="nav.study">Study Resources</span></a>
+            <a href="ai-chat.html" class="nav-item">🤖 <span data-i18n="nav.aichat">AI Assistant</span></a>
+            <a href="profile.html" class="nav-item">👤 <span data-i18n="nav.profile">Profile</span></a>
+            <a href="settings.html" class="nav-item">⚙️ <span data-i18n="nav.settings">Settings</span></a>
+            <div style="flex: 1;"></div>
+            <a href="#" onclick="logout()" class="nav-item" style="color: #ef4444;">🚪 <span data-i18n="nav.logout">Logout</span></a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-navbar">
+                <div>
+                    <h2 style="font-weight: 800;" data-i18n="nav.search">Search Communities</h2>
+                    <p style="opacity: 0.8;" data-i18n="discover.subtitle">Find tribes and topics instantly.</p>
+                </div>
+
+                <div class="top-nav-controls">
+                    <!-- Language Selector Badge -->
+                    <div class="lang-switcher-wrapper">
+                        <span class="lang-icon">🌐</span>
+                        <select class="lang-select-dropdown" onchange="setLanguage(this.value)">
+                            <option value="en">English</option>
+                            <option value="hi">हिन्दी</option>
+                            <option value="gu">ગુજરાતી</option>
+                        </select>
+                    </div>
+
+                    <div class="nav-icons">
+                        <a href="notification.html" class="icon-btn" title="Notifications">🔔</a>
+                        <a href="settings.html" class="icon-btn" title="Settings">⚙️</a>
+                        <a href="profile.html" class="icon-btn" title="Profile">👤</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="padding: 24px; margin-bottom: 24px;">
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <input type="text" class="form-control" data-i18n-placeholder="search.placeholder" placeholder="Search for tribes, people, or resources..." style="flex:1; min-width: 250px;" oninput="searchCommunities(this.value)">
+                    <button class="btn btn-primary" data-i18n="btn.search">Search</button>
+                </div>
+            </div>
+
+            <div class="card-grid" id="communitiesGrid">
+                <!-- Communities rendered by JS -->
+            </div>
+        </div>
+    </div>
+    <script src="i18n.js?v=4"></script>
+    <script src="app.js?v=4"></script>
+</body>
+</html>

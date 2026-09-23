@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Resource Hub - FindMyTribe</title>
+    <link rel="stylesheet" href="styles.css?v=7">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <a href="home.html" class="brand-logo">
+                <div class="brand-logo-icon">T</div>
+                <span class="brand-logo-text" data-i18n="app.name">FindMyTribe</span>
+            </a>
+            <a href="home.html" class="nav-item">🏠 <span data-i18n="nav.home">Dashboard</span></a>
+            <a href="mytribes.html" class="nav-item">👥 <span data-i18n="nav.mytribes">My Tribes</span></a>
+            <a href="discover.html" class="nav-item">🔍 <span data-i18n="nav.discover">Discover Tribes</span></a>
+            <a href="study.html" class="nav-item active">📚 <span data-i18n="nav.study">Study Resource Hub</span></a>
+            <a href="ai-chat.html" class="nav-item">🤖 <span data-i18n="nav.aichat">AI Assistant</span></a>
+            <a href="profile.html" class="nav-item">👤 <span data-i18n="nav.profile">Profile</span></a>
+            <a href="settings.html" class="nav-item">⚙️ <span data-i18n="nav.settings">Settings</span></a>
+            <div style="flex: 1;"></div>
+            <a href="#" onclick="logout()" class="nav-item" style="color: #ef4444;">🚪 <span data-i18n="nav.logout">Logout</span></a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-navbar">
+                <div>
+                    <h2 style="font-weight: 800;" data-i18n="study.title">Academic Resource Hub 📚</h2>
+                    <p style="opacity:0.8;" data-i18n="study.subtitle">Search topics to get instant direct links for Wikipedia references, Articles, and YouTube videos.</p>
+                </div>
+                
+                <div class="top-nav-controls">
+                    <!-- Language Selector Badge -->
+                    <div class="lang-switcher-wrapper">
+                        <span class="lang-icon">🌐</span>
+                        <select class="lang-select-dropdown" onchange="setLanguage(this.value)">
+                            <option value="en">English</option>
+                            <option value="hi">हिन्दी</option>
+                            <option value="gu">ગુજરાતી</option>
+                        </select>
+                    </div>
+
+                    <div class="nav-icons">
+                        <a href="notification.html" class="icon-btn" title="Notifications">🔔</a>
+                        <a href="settings.html" class="icon-btn" title="Settings">⚙️</a>
+                        <a href="profile.html" class="icon-btn" title="Profile">👤</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Real-Time Focus Study Session Timer Box -->
+            <div class="glass-card" style="padding: 20px; margin-bottom: 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; border-left: 5px solid #10b981;">
+                <div>
+                    <h3 style="font-weight: 800; display:flex; align-items:center; gap:8px;">
+                        ⏱️ Focus Study Timer
+                        <span class="category-tag" style="background:rgba(16,185,129,0.2); color:#10b981;">+25 Rep Pts / Hour</span>
+                    </h3>
+                    <p style="font-size:0.88rem; opacity:0.85; margin-top:2px;">Track your study time real-time to update your profile stats & level up reputation!</p>
+                </div>
+                
+                <div style="display:flex; align-items:center; gap: 14px; flex-wrap:wrap;">
+                    <div style="font-size: 1.8rem; font-weight:800; font-family:monospace; color:var(--primary);" id="studyTimerDisplay">00:00:00</div>
+                    <button class="btn btn-primary" id="studyTimerBtn" onclick="toggleStudySessionTimer()">▶️ Start Session</button>
+                    <button class="btn btn-outline" onclick="logManualStudyTime()">➕ Add 1 Hour Study</button>
+                </div>
+            </div>
+            <!-- Category Domain Filter Pills -->
+            <div class="category-pills-bar">
+                <button class="category-pill active" onclick="setStudyCategory('IT & Software')" data-i18n="study.cat_it">IT & Software</button>
+                <button class="category-pill" onclick="setStudyCategory('Medical & MBBS')" data-i18n="study.cat_med">Medical & MBBS</button>
+                <button class="category-pill" onclick="setStudyCategory('Engineering')" data-i18n="study.cat_eng">Engineering</button>
+                <button class="category-pill" onclick="setStudyCategory('Business & MBA')" data-i18n="study.cat_biz">Business & MBA</button>
+                <button class="category-pill" onclick="setStudyCategory('Finance & CA')" data-i18n="study.cat_fin">Finance & CA</button>
+                <button class="category-pill" onclick="setStudyCategory('Law & Legal')" data-i18n="study.cat_law">Law & Legal</button>
+                <button class="category-pill" onclick="setStudyCategory('Design & UI/UX')" data-i18n="study.cat_des">Design & UI/UX</button>
+            </div>
+
+            <!-- Resource Format Tabs (Wikipedia, Articles, YT Videos) -->
+            <div class="resource-tabs">
+                <div class="resource-tab active" onclick="setStudyTab('all')" data-i18n="study.tab_all">🌟 All Resources</div>
+                <div class="resource-tab" onclick="setStudyTab('wiki')" data-i18n="study.tab_wiki">🌐 Wikipedia Reference</div>
+                <div class="resource-tab" onclick="setStudyTab('articles')" data-i18n="study.tab_articles">📰 Articles & Blogs</div>
+                <div class="resource-tab" onclick="setStudyTab('yt')" data-i18n="study.tab_yt">📺 YouTube Videos</div>
+            </div>
+
+            <!-- Topic Search Input -->
+            <div class="glass-card" style="padding: 20px; margin-bottom: 24px;">
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <input type="text" id="resourceSearch" class="form-control" style="flex:1; min-width: 250px;" data-i18n-placeholder="study.placeholder" placeholder="Enter topic (e.g. Java, Data Structures, Biochemistry, Tax Law, Cybersecurity)..." onkeypress="if(event.key==='Enter') searchTopicResources()">
+                    <button class="btn btn-primary" onclick="searchTopicResources()" data-i18n="btn.search">Search Resources</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Resource Results Container -->
+            <div id="resourceResults">
+                <!-- Loaded dynamically by app.js -->
+            </div>
+        </div>
+    </div>
+    <script src="i18n.js?v=7"></script>
+    <script src="app.js?v=7"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FindMyTribe</title>
+    <link rel="stylesheet" href="styles.css?v=5">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <a href="home.html" class="brand-logo">
+                <div class="brand-logo-icon">T</div>
+                <span class="brand-logo-text" data-i18n="app.name">FindMyTribe</span>
+            </a>
+            <a href="home.html" class="nav-item active">🏠 <span data-i18n="nav.home">Dashboard</span></a>
+            <a href="mytribes.html" class="nav-item">👥 <span data-i18n="nav.mytribes">My Tribes</span></a>
+            <a href="discover.html" class="nav-item">🔍 <span data-i18n="nav.discover">Discover Tribes</span></a>
+            <a href="study.html" class="nav-item">📚 <span data-i18n="nav.study">Study Resource Hub</span></a>
+            <a href="ai-chat.html" class="nav-item">🤖 <span data-i18n="nav.aichat">AI Assistant</span></a>
+            <a href="profile.html" class="nav-item">👤 <span data-i18n="nav.profile">Profile</span></a>
+            <a href="settings.html" class="nav-item">⚙️ <span data-i18n="nav.settings">Settings</span></a>
+            <div style="flex: 1;"></div>
+            <a href="#" onclick="logout()" class="nav-item" style="color: #ef4444;">🚪 <span data-i18n="nav.logout">Logout</span></a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navbar -->
+            <div class="top-navbar">
+                <div class="search-bar">
+                    <input type="text" data-i18n-placeholder="search.placeholder" placeholder="Search communities, people, topics..." oninput="searchCommunities(this.value)">
+                </div>
+                
+                <div class="top-nav-controls">
+                    <!-- Language Selector Badge -->
+                    <div class="lang-switcher-wrapper">
+                        <span class="lang-icon">🌐</span>
+                        <select class="lang-select-dropdown" onchange="setLanguage(this.value)">
+                            <option value="en">English</option>
+                            <option value="hi">हिन्दी</option>
+                            <option value="gu">ગુજરાતી</option>
+                        </select>
+                    </div>
+
+                    <div class="nav-icons">
+                        <a href="notification.html" class="icon-btn" title="Notifications">🔔</a>
+                        <a href="settings.html" class="icon-btn" title="Settings">⚙️</a>
+                        <a href="profile.html" class="icon-btn" title="Profile">👤</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Banner -->
+            <div class="glass-card welcome-banner">
+                <h1 id="homeWelcomeName">Welcome back, Student Explorer! 👋</h1>
+                <p style="font-size: 1.05rem; margin-bottom: 20px; line-height: 1.6;" data-i18n="home.welcome_desc">
+                    Stay updated with your communities, upcoming webinars, study materials, and AI tutoring assistant.
+                </p>
+                <div style="display:flex; gap: 14px; flex-wrap: wrap;">
+                    <a href="discover.html" class="btn btn-primary" data-i18n="nav.discover">🔍 Discover Tribes</a>
+                    <a href="study.html" class="btn btn-outline" data-i18n="nav.study">📚 Explore Study Notes</a>
+                    <a href="ai-chat.html" class="btn btn-outline" data-i18n="nav.aichat">🤖 Ask AI Tutor</a>
+                </div>
+            </div>
+
+            <!-- Stats Summary Bar (4 Stats Cards) -->
+            <div class="stats-summary-grid">
+                <div class="glass-card stat-box">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <h4 id="homeStatJoinedTribes">0 Tribes</h4>
+                        <p data-i18n="home.stat_tribes">Joined Tribes</p>
+                    </div>
+                </div>
+                <div class="glass-card stat-box">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-info">
+                        <h4 id="homeStatStudyHours">0 Hrs</h4>
+                        <p data-i18n="home.stat_hours">Study Hours</p>
+                    </div>
+                </div>
+                <div class="glass-card stat-box">
+                    <div class="stat-icon">💬</div>
+                    <div class="stat-info">
+                        <h4 id="homeStatPosts">0 Posts</h4>
+                        <p data-i18n="home.stat_posts">Discussion Posts</p>
+                    </div>
+                </div>
+                <div class="glass-card stat-box" style="border: 1px solid rgba(245,158,11,0.4);">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-info">
+                        <h4 id="homeStatReputation">0 Pts</h4>
+                        <p data-i18n="home.stat_points">Reputation Points</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Split Columns (Left Feed & Right Widgets) -->
+            <div style="display: flex; gap: 28px; flex-wrap: wrap;">
+                <!-- Main Feed Column -->
+                <div style="flex: 2; min-width: 320px;">
+                    <!-- Community Activity Stream -->
+                    <div class="glass-card" style="padding: 24px; margin-bottom: 28px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px; flex-wrap:wrap; gap:10px;">
+                            <div>
+                                <h3 style="font-weight: 800;" data-i18n="home.activity_title">Joined Tribes Live Feed & Pinned Messages</h3>
+                                <p style="font-size: 0.88rem; opacity: 0.8;">Filtered by your joined communities using CommunityLiveFeedSortingAlgorithm.</p>
+                            </div>
+                            <span class="category-tag" style="background:rgba(239,68,68,0.2); color:#ef4444;">Live Stream 🔴</span>
+                        </div>
+
+                        <div class="activity-stream" id="homeLiveActivityStream">
+                            <div class="glass-card activity-item" style="padding:20px; opacity:0.8;">
+                                Loading live feed and pinned community messages...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommended Tribes Section -->
+                    <h3 style="margin-bottom: 8px; font-weight: 800;" data-i18n="home.recommended_title">Recommended Communities</h3>
+                    <p style="opacity: 0.8; margin-bottom: 20px;" data-i18n="home.recommended_sub">Popular student & professional tribes tailored for your goals.</p>
+
+                    <div class="card-grid" id="communitiesGrid">
+                        <!-- Communities loaded by JS -->
+                    </div>
+                </div>
+
+                <!-- Side Widget Column -->
+                <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 24px;">
+                    <!-- Upcoming Webinars & Workshops Widget -->
+                    <div class="glass-card" style="padding: 24px;">
+                        <h3 style="font-weight: 800; margin-bottom: 4px;" data-i18n="home.events_title">Upcoming Webinars</h3>
+                        <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 16px;" data-i18n="home.events_sub">Join live study sessions with experts.</p>
+
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div class="event-item">
+                                <div class="event-date-badge">
+                                    <span class="day">18</span>
+                                    <span class="month">Aug</span>
+                                </div>
+                                <div style="flex:1;">
+                                    <strong style="font-size:0.92rem;">Spring Microservices Bootcamp</strong>
+                                    <p style="font-size:0.8rem; opacity:0.8;">Hosted by Java Tribe • 6:00 PM</p>
+                                </div>
+                            </div>
+
+                            <div class="event-item">
+                                <div class="event-date-badge" style="background: linear-gradient(135deg, #0ea5e9, #0284c7);">
+                                    <span class="day">22</span>
+                                    <span class="month">Aug</span>
+                                </div>
+                                <div style="flex:1;">
+                                    <strong style="font-size:0.92rem;">Clinical Case Study Workshop</strong>
+                                    <p style="font-size:0.8rem; opacity:0.8;">Hosted by MBBS Tribe • 4:30 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Quick Tutor Widget -->
+                    <div class="glass-card" style="padding: 24px;">
+                        <h3 style="font-weight: 800; margin-bottom: 4px;" data-i18n="home.quickai_title">Ask AI Tutor Assistant</h3>
+                        <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 16px;" data-i18n="home.quickai_sub">Get immediate help on study questions.</p>
+
+                        <textarea id="quickAiPrompt" class="form-control" rows="3" placeholder="e.g. Explain Binary Search Tree balancing in simple terms..." style="margin-bottom: 12px;"></textarea>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="window.location.href='ai-chat.html'">Ask Gemini AI Tutor</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="i18n.js?v=5"></script>
+    <script src="app.js?v=5"></script>
+</body>
+</html>

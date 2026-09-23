@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FindMyTribe</title>
+    <link rel="stylesheet" href="styles.css?v=5">
+</head>
+<body>
+    <div class="auth-split-container">
+        <!-- Left Hero Panel -->
+        <div class="auth-hero-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <a href="index.html" class="brand-logo" style="padding:0;">
+                    <div class="brand-logo-icon">T</div>
+                    <span class="brand-logo-text" data-i18n="app.name">FindMyTribe</span>
+                </a>
+
+                <!-- Language Selector -->
+                <div class="lang-switcher-wrapper">
+                    <span class="lang-icon">🌐</span>
+                    <select class="lang-select-dropdown" onchange="setLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="gu">ગુજરાતી</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="margin: 40px 0;">
+                <h1 style="font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px;" data-i18n="auth.hero_title">
+                    Your Academic Tribe Awaits 👋
+                </h1>
+                <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; line-height: 1.6;" data-i18n="auth.hero_desc">
+                    Join 50+ specialized communities, collaborate on projects, get instant AI study help, and master your career goals.
+                </p>
+
+                <div style="display:flex; flex-direction:column; gap: 16px;">
+                    <div style="display:flex; align-items:center; gap: 12px;">
+                        <span style="width:28px; height:28px; border-radius:50%; background:rgba(79,70,229,0.2); display:flex; align-items:center; justify-content:center; color:var(--primary); font-weight:700;">✓</span>
+                        <span style="font-weight:600;" data-i18n="auth.hero_feat1">Connect with top peers in BTech, MBBS, CA, Law & Design</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap: 12px;">
+                        <span style="width:28px; height:28px; border-radius:50%; background:rgba(79,70,229,0.2); display:flex; align-items:center; justify-content:center; color:var(--primary); font-weight:700;">✓</span>
+                        <span style="font-weight:600;" data-i18n="auth.hero_feat2">Instant 24/7 AI Tutor powered by Google Gemini</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap: 12px;">
+                        <span style="width:28px; height:28px; border-radius:50%; background:rgba(79,70,229,0.2); display:flex; align-items:center; justify-content:center; color:var(--primary); font-weight:700;">✓</span>
+                        <span style="font-weight:600;" data-i18n="auth.hero_feat3">Free revision notes, video lectures, and practice quizzes</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial Quote Badge -->
+            <div class="glass-card" style="padding: 20px;">
+                <p style="font-style: italic; font-size: 0.95rem; opacity: 0.9;">"FindMyTribe helped me connect with Java developers across India. The study resources and AI tutor saved me during final exams!"</p>
+                <div style="display:flex; align-items:center; gap: 12px; margin-top: 12px;">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+                    <div>
+                        <strong style="font-size:0.9rem;">Sneha Sharma</strong>
+                        <p style="font-size:0.78rem; opacity:0.7;">BTech Computer Science Student</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Form Panel -->
+        <div class="auth-form-panel">
+            <div class="glass-card auth-card">
+                <h2 class="text-center mb-2" style="font-weight: 800;" data-i18n="auth.login_title">Welcome Back 👋</h2>
+                <p class="text-center mb-4" style="opacity: 0.8; font-size: 0.92rem;" data-i18n="auth.login_sub">Sign in to access your tribes, study notes, and AI assistant.</p>
+                
+                <!-- Backend Database Connection Notice -->
+                <div style="background: rgba(79,70,229,0.08); border: 1px solid rgba(79,70,229,0.2); border-radius: 12px; padding: 12px; margin-bottom: 20px; font-size: 0.82rem; text-align: center; opacity: 0.9;">
+                    🔒 <strong>Pure MongoDB Database Auth</strong><br>
+                    Backend: <code>http://localhost:8080</code> | Database: <code>localhost:27017</code>
+                </div>
+
+                <form onsubmit="login(event)">
+                    <div class="form-group">
+                        <label data-i18n="auth.username">Username</label>
+                        <input type="text" id="username" class="form-control" placeholder="Enter your registered username" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="auth.password">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;" data-i18n="nav.login">Login to Account</button>
+                </form>
+
+                <p class="text-center mt-4" style="font-size: 0.9em;">
+                    <span data-i18n="auth.no_account">Don't have an account?</span> 
+                    <a href="signup.html" style="color: var(--primary); font-weight:700;" data-i18n="nav.signup">Sign up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="i18n.js?v=5"></script>
+    <script src="app.js?v=5"></script>
+</body>
+</html>

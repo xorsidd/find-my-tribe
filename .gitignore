@@ -1,0 +1,40 @@
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.pfx
+*.p12
+
+# Logs
+*.log
+logs/
+logs.txt
+
+# Maven build artifacts
+target/
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+
+# IDE & Editor settings
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.settings/
+.project
+.classpath
+
+# Copilot / Modernize Tool Transcripts & Logs
+.github/java-upgrade/
+.github/modernize/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini

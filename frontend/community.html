@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Room - FindMyTribe</title>
+    <link rel="stylesheet" href="styles.css?v=5">
+    <style>
+        .pinned-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .message-bubble {
+            margin-bottom: 14px;
+            padding: 14px 18px;
+            border-radius: 16px;
+            max-width: 85%;
+            line-height: 1.5;
+            position: relative;
+        }
+        .message-bubble.pinned {
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            background: rgba(245, 158, 11, 0.08);
+        }
+        .message-media-img {
+            max-width: 100%;
+            max-height: 280px;
+            border-radius: 12px;
+            margin-top: 10px;
+            object-fit: cover;
+            border: 1px solid var(--border-light);
+        }
+        .message-media-video {
+            max-width: 100%;
+            max-height: 280px;
+            border-radius: 12px;
+            margin-top: 10px;
+            border: 1px solid var(--border-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <a href="home.html" class="brand-logo">
+                <div class="brand-logo-icon">T</div>
+                <span class="brand-logo-text" data-i18n="app.name">FindMyTribe</span>
+            </a>
+            <a href="home.html" class="nav-item">🏠 <span data-i18n="nav.home">Home</span></a>
+            <a href="mytribes.html" class="nav-item active">👥 <span data-i18n="nav.mytribes">My Tribes</span></a>
+            <a href="discover.html" class="nav-item">🔍 <span data-i18n="nav.discover">Discover</span></a>
+            <a href="study.html" class="nav-item">📚 <span data-i18n="nav.study">Study Resources</span></a>
+            <a href="ai-chat.html" class="nav-item">🤖 <span data-i18n="nav.aichat">AI Assistant</span></a>
+            <a href="profile.html" class="nav-item">👤 <span data-i18n="nav.profile">Profile</span></a>
+            <a href="settings.html" class="nav-item">⚙️ <span data-i18n="nav.settings">Settings</span></a>
+            <div style="flex: 1;"></div>
+            <a href="#" onclick="logout()" class="nav-item" style="color: #ef4444;">🚪 <span data-i18n="nav.logout">Logout</span></a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-navbar">
+                <div>
+                    <h2 id="communityHeaderTitle" style="font-weight: 800;">Community Room</h2>
+                </div>
+
+                <div class="top-nav-controls">
+                    <div class="lang-switcher-wrapper">
+                        <span class="lang-icon">🌐</span>
+                        <select class="lang-select-dropdown" onchange="setLanguage(this.value)">
+                            <option value="en">English</option>
+                            <option value="hi">हिन्दी</option>
+                            <option value="gu">ગુજરાતી</option>
+                        </select>
+                    </div>
+
+                    <div class="nav-icons">
+                        <a href="notification.html" class="icon-btn" title="Notifications">🔔</a>
+                        <a href="settings.html" class="icon-btn" title="Settings">⚙️</a>
+                        <a href="profile.html" class="icon-btn" title="Profile">👤</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="communityContent">
+                <!-- Dynamic Content Rendered Here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="i18n.js?v=5"></script>
+    <script src="app.js?v=5"></script>
+    <script>
+        let currentTribeName = '';
+
+        function renderCommunityView() {
+            const urlParams = new URLSearchParams(window.location.search);
+            currentTribeName = urlParams.get('id') || 'Java Developers';
+            const content = document.getElementById('communityContent');
+            const headerTitle = document.getElementById('communityHeaderTitle');
+
+            const tribe = ALL_DEPARTMENTS.find(d => d.name === currentTribeName) || {name: currentTribeName, category: 'General', img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&auto=format&fit=crop'};
+            const translatedName = translateDepartmentName(tribe.name);
+            headerTitle.textContent = translatedName;
+
+            const user = getCurrentUser();
+            const isJoined = user && user.joinedCommunities && user.joinedCommunities.includes(currentTribeName);
+
+            let discussionPanelHtml = '';
+
+            if (isJoined) {
+                discussionPanelHtml = `
+                <div class="glass-card chat-container" style="flex: 2; min-width: 320px; height: 600px; display:flex; flex-direction:column;">
+                    <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-light); display:flex; justify-content:space-between; align-items:center;">
+                        <h3 style="font-weight:700;">💬 ${translatedName} - Discussion & Media Room</h3>
+                        <span class="category-tag" style="background:rgba(16,185,129,0.2); color:#10b981;">✓ Member Unlocked</span>
+                    </div>
+
+                    <div class="chat-messages" id="groupChatMessages" style="flex: 1; overflow-y: auto; padding: 20px; display:flex; flex-direction:column;">
+                        <div class="glass-card message-bubble bot" style="align-self: flex-start;">
+                            👋 Welcome to <strong>${translatedName}</strong>! Post text, images, or video links and pin key notes for the community live feed.
+                        </div>
+                    </div>
+
+                    <!-- Input Bar with Media Attachments & Pin Option -->
+                    <div class="chat-input-bar" style="display:flex; flex-direction:column; gap:10px; padding: 16px 20px; background: rgba(0,0,0,0.2);">
+                        <!-- Optional Media URL Bar -->
+                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                            <input type="text" id="groupImageInput" class="form-control" style="flex:1; font-size:0.82rem;" placeholder="🖼️ Image URL (optional)...">
+                            <input type="text" id="groupVideoInput" class="form-control" style="flex:1; font-size:0.82rem;" placeholder="🎥 Video URL (mp4/YouTube embed)...">
+                        </div>
+
+                        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+                            <div style="display:flex; align-items:center; gap: 8px; font-size:0.85rem; opacity:0.9;">
+                                <input type="checkbox" id="pinMessageCheckbox" style="width:16px; height:16px;">
+                                <label for="pinMessageCheckbox" style="margin:0; cursor:pointer;">📌 Pin Message (+20 Rep Pts)</label>
+                            </div>
+                            <div style="display:flex; gap:10px; flex:1; min-width:260px;">
+                                <input type="text" id="groupChatInput" class="form-control" placeholder="Write a message to the group..." onkeypress="if(event.key==='Enter') sendCommunityMessage()">
+                                <button class="btn btn-primary" onclick="sendCommunityMessage()">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            } else {
+                discussionPanelHtml = `
+                <div class="glass-card chat-container" style="flex: 2; min-width: 320px; height: 500px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:40px;">
+                    <div style="font-size: 3.5rem; margin-bottom: 16px;">🔒</div>
+                    <h2 style="font-weight:800; margin-bottom: 8px;">Tribe Membership Required</h2>
+                    <p style="opacity:0.85; max-width: 440px; margin-bottom: 24px; line-height: 1.6;">
+                        You must join the <strong>${translatedName}</strong> tribe to unlock the discussion room, post text/images/videos, and view pinned notes!
+                    </p>
+                    <button class="btn btn-primary" style="padding: 14px 32px; font-size:1.05rem; border-radius:30px;" onclick="joinTribe('${tribe.name}')">➕ Join ${translatedName} Tribe to Unlock Chat</button>
+                </div>`;
+            }
+
+            content.innerHTML = `
+            <div class="glass-card" style="padding: 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 24px;">
+                <img src="${tribe.img}" onerror="this.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&auto=format&fit=crop'" style="width: 120px; height: 120px; border-radius: 16px; object-fit: cover;">
+                <div style="flex:1;">
+                    <span class="category-tag">${tribe.category}</span>
+                    <h1 style="font-size: 1.8rem; font-weight:800; margin: 4px 0;">${translatedName}</h1>
+                    <p style="opacity: 0.85; margin-bottom: 12px;">👥 ${tribe.members || 1200} members enrolled</p>
+                    <div style="display:flex; gap:12px;">
+                        <button class="btn ${isJoined ? 'btn-outline' : 'btn-primary'}" onclick="${isJoined ? `leaveTribe('${tribe.name}')` : `joinTribe('${tribe.name}')`}">
+                            ${isJoined ? '✓ Joined Tribe (Leave)' : '➕ Join Tribe'}
+                        </button>
+                        <button class="btn btn-outline" onclick="window.location.href='mytribes.html'">← Back to My Tribes</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                ${discussionPanelHtml}
+                
+                <!-- Active Members Panel -->
+                <div class="glass-card" style="flex: 1; min-width: 260px; padding: 24px; height: fit-content;">
+                    <h3 style="margin-bottom: 16px; font-weight:800;">🟢 Active Tribe Members</h3>
+                    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 14px;">
+                        <li style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop" style="width:34px; height:34px; border-radius:50%; object-fit:cover;"> 
+                                <span>Sneha (Lead) 👑</span>
+                            </div>
+                            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.8em;" onclick="directMessage('Sneha')">DM</button>
+                        </li>
+                        <li style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop" style="width:34px; height:34px; border-radius:50%; object-fit:cover;"> 
+                                <span>Arjun</span>
+                            </div>
+                            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.8em;" onclick="directMessage('Arjun')">DM</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>`;
+
+            if (isJoined) {
+                loadCommunityMessagesFromApi(currentTribeName);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCommunityView();
+        });
+
+        window.addEventListener('languageChanged', () => {
+            renderCommunityView();
+        });
+    </script>
+</body>
+</html>

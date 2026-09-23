@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindMyTribe - Find Your People. Succeed Together.</title>
+    <link rel="stylesheet" href="styles.css?v=5">
+    <style>
+        .landing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 40px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px 60px 20px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(79,70,229,0.15), rgba(14,165,233,0.15));
+            border: 1px solid var(--border-light);
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+        .hero-section h1 {
+            font-size: 3.6rem;
+            font-weight: 800;
+            line-height: 1.15;
+            background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+        }
+        .dark-mode .hero-section h1 {
+            background: linear-gradient(135deg, #818cf8 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stats-banner {
+            display: flex;
+            justify-content: space-around;
+            max-width: 1100px;
+            margin: 0 auto 60px auto;
+            padding: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .stats-banner-item {
+            text-align: center;
+        }
+        .stats-banner-item h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+        .feature-card {
+            padding: 32px;
+            text-align: left;
+        }
+        .feature-icon-box {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(79,70,229,0.12), rgba(14,165,233,0.12));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-light);
+        }
+    </style>
+</head>
+<body>
+    <header class="landing-header">
+        <a href="index.html" class="brand-logo" style="padding:0;">
+            <div class="brand-logo-icon">T</div>
+            <span class="brand-logo-text" data-i18n="app.name">FindMyTribe</span>
+        </a>
+        <div style="display:flex; align-items: center; gap: 16px;">
+            <div class="lang-switcher-wrapper">
+                <span class="lang-icon">🌐</span>
+                <select class="lang-select-dropdown" onchange="setLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="gu">ગુજરાતી</option>
+                </select>
+            </div>
+            <a href="login.html" class="btn btn-outline" data-i18n="nav.login">Login</a>
+            <a href="signup.html" class="btn btn-primary" data-i18n="nav.signup">Sign Up Free</a>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <span class="hero-badge" data-i18n="hero.badge">✨ India's Premier Educational Tribe Platform</span>
+        <h1 data-i18n="hero.title">Find Your Tribe. Connect & Excel Together.</h1>
+        <p style="font-size: 1.25rem; opacity: 0.9; margin-bottom: 40px; line-height: 1.6;" data-i18n="hero.desc">
+            Join specialized student and professional communities across 50+ fields. Access AI tutoring, study guides, and group chats.
+        </p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+            <a href="signup.html" class="btn btn-primary" style="padding: 14px 38px; font-size: 1.05rem; border-radius: 30px;" data-i18n="btn.getstarted">Get Started Free</a>
+            <a href="login.html" class="btn btn-outline" style="padding: 14px 38px; font-size: 1.05rem; border-radius: 30px;" data-i18n="nav.login">🔑 Account Login</a>
+        </div>
+    </main>
+
+    <!-- Platform Stats Banner -->
+    <section class="glass-card stats-banner">
+        <div class="stats-banner-item">
+            <h2>50+</h2>
+            <p data-i18n="hero.stat_tribes">Educational Tribes</p>
+        </div>
+        <div class="stats-banner-item">
+            <h2>15,000+</h2>
+            <p data-i18n="hero.stat_members">Active Students</p>
+        </div>
+        <div class="stats-banner-item">
+            <h2>1,200+</h2>
+            <p data-i18n="hero.stat_resources">PDF Notes & Guides</p>
+        </div>
+        <div class="stats-banner-item">
+            <h2>24/7</h2>
+            <p data-i18n="nav.aichat">AI Tutor Support</p>
+        </div>
+    </section>
+
+    <!-- Feature Deep Dive Grid -->
+    <section class="features-grid">
+        <div class="glass-card feature-card">
+            <div class="feature-icon-box">🤝</div>
+            <h3 style="margin-bottom: 10px; font-weight:800;" data-i18n="home.discover_title">Specialized Communities</h3>
+            <p style="opacity: 0.85; font-size: 0.95rem;" data-i18n="home.discover_desc">Explore 50+ educational domains from Engineering and Medicine to Law and Arts.</p>
+        </div>
+        <div class="glass-card feature-card">
+            <div class="feature-icon-box">📚</div>
+            <h3 style="margin-bottom: 10px; font-weight:800;" data-i18n="home.study_title">Academic Resource Hub</h3>
+            <p style="opacity: 0.85; font-size: 0.95rem;" data-i18n="home.study_desc">Find high quality video tutorials, Wikipedia references, and research articles instantly.</p>
+        </div>
+        <div class="glass-card feature-card">
+            <div class="feature-icon-box">🤖</div>
+            <h3 style="margin-bottom: 10px; font-weight:800;" data-i18n="home.aichat_title">Google Gemini AI Tutor</h3>
+            <p style="opacity: 0.85; font-size: 0.95rem;" data-i18n="home.aichat_desc">Ask complex academic questions and get smart AI responses powered by Gemini.</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="max-width: 900px; margin: 0 auto 60px auto; padding: 0 20px;">
+        <h2 class="text-center" style="font-weight: 800; margin-bottom: 30px;" data-i18n="faq.title">Frequently Asked Questions</h2>
+
+        <div class="glass-card faq-item">
+            <div class="faq-question">
+                <span data-i18n="faq.q1">Is FindMyTribe completely free for students?</span>
+                <span>▼</span>
+            </div>
+            <div class="faq-answer" data-i18n="faq.a1">Yes! Joining tribes, accessing study notes, and interacting in group chats is 100% free for all students and learners.</div>
+        </div>
+
+        <div class="glass-card faq-item">
+            <div class="faq-question">
+                <span data-i18n="faq.q2">How does the AI Assistant work?</span>
+                <span>▼</span>
+            </div>
+            <div class="faq-answer" data-i18n="faq.a2">Our AI Assistant is powered by Google Gemini API. You can ask study questions, code debugging help, or career guidance anytime.</div>
+        </div>
+
+        <div class="glass-card faq-item">
+            <div class="faq-question">
+                <span data-i18n="faq.q3">Can I create my own community or tribe?</span>
+                <span>▼</span>
+            </div>
+            <div class="faq-answer" data-i18n="faq.a3">Yes! Members can request new tribes for specific college courses, competitive exams, or niche technologies.</div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px 20px; opacity: 0.8; font-size: 0.9rem; border-top: 1px solid var(--border-light);" data-i18n="footer.rights">
+        © 2026 FindMyTribe. Built with passion for students & professionals.
+    </footer>
+
+    <script src="i18n.js?v=5"></script>
+    <script src="app.js?v=5"></script>
+</body>
+</html>

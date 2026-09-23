@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - FindMyTribe</title>
+    <link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="home.html" class="brand-logo">
+                <div class="brand-logo-icon">T</div>
+                <span class="brand-logo-text" data-i18n="app.name">FindMyTribe</span>
+            </a>
+            <a href="home.html" class="nav-item">🏠 <span data-i18n="nav.home">Home</span></a>
+            <a href="mytribes.html" class="nav-item">👥 <span data-i18n="nav.mytribes">My Tribes</span></a>
+            <a href="discover.html" class="nav-item">🔍 <span data-i18n="nav.discover">Discover</span></a>
+            <a href="study.html" class="nav-item">📚 <span data-i18n="nav.study">Study Resources</span></a>
+            <a href="ai-chat.html" class="nav-item">🤖 <span data-i18n="nav.aichat">AI Assistant</span></a>
+            <a href="profile.html" class="nav-item">👤 <span data-i18n="nav.profile">Profile</span></a>
+            <a href="settings.html" class="nav-item active">⚙️ <span data-i18n="nav.settings">Settings</span></a>
+            <div style="flex: 1;"></div>
+            <a href="#" onclick="logout()" class="nav-item" style="color: #ef4444;">🚪 <span data-i18n="nav.logout">Logout</span></a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-navbar">
+                <div>
+                    <h2 style="font-weight: 800;" data-i18n="settings.title">Account Settings ⚙️</h2>
+                    <p style="opacity: 0.8;" data-i18n="settings.subtitle">Customize your workspace experience and preferences.</p>
+                </div>
+
+                <div class="top-nav-controls">
+                    <!-- Language Selector Badge -->
+                    <div class="lang-switcher-wrapper">
+                        <span class="lang-icon">🌐</span>
+                        <select class="lang-select-dropdown" onchange="setLanguage(this.value)">
+                            <option value="en">English</option>
+                            <option value="hi">हिन्दी</option>
+                            <option value="gu">ગુજરાતી</option>
+                        </select>
+                    </div>
+
+                    <div class="nav-icons">
+                        <a href="notification.html" class="icon-btn" title="Notifications">🔔</a>
+                        <a href="settings.html" class="icon-btn" title="Settings">⚙️</a>
+                        <a href="profile.html" class="icon-btn" title="Profile">👤</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="padding: 30px; max-width: 680px; margin-top: 10px;">
+                <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 20px;">
+                    <label style="margin:0; font-size: 1.05rem; font-weight:700;" data-i18n="settings.darkmode">Dark Visual Mode</label>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding: 20px 0;">
+                    <label style="margin:0; font-size: 1.05rem; font-weight:700;" data-i18n="settings.language">App Interface Language</label>
+                    <select class="form-control lang-select-dropdown" style="width: auto; font-weight:700;" onchange="setLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी (Hindi)</option>
+                        <option value="gu">ગુજરાતી (Gujarati)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="padding: 20px 0; border-bottom: 1px solid var(--border-light);">
+                    <label style="font-size: 1.05rem; font-weight:700;" data-i18n="settings.password_title">Change Password</label>
+                    <div style="display:flex; gap:12px; margin-top:14px; flex-wrap: wrap;">
+                        <input type="password" id="oldPasswordInput" data-i18n-placeholder="settings.old_pass" placeholder="Current Password" class="form-control" style="flex:1;">
+                        <input type="password" id="newPasswordInput" data-i18n-placeholder="settings.new_pass" placeholder="New Password" class="form-control" style="flex:1;">
+                        <button class="btn btn-primary" onclick="changePassword()" data-i18n="btn.update">Update</button>
+                    </div>
+                </div>
+
+                <div class="form-group" style="padding-top: 20px;">
+                    <label style="font-size: 1.05rem; font-weight:700;" data-i18n="settings.apikey_title">Custom Gemini AI Key (Optional)</label>
+                    <div style="display:flex; gap:12px; margin-top:14px; flex-wrap: wrap;">
+                        <input type="password" id="geminiApiKeyInput" class="form-control" data-i18n-placeholder="settings.apikey_placeholder" placeholder="Paste your Gemini API key..." style="flex:1;">
+                        <button class="btn btn-primary" onclick="saveApiKey()" data-i18n="btn.save">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="i18n.js?v=4"></script>
+    <script src="app.js?v=4"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedKey = localStorage.getItem('geminiApiKey');
+            if (savedKey) {
+                document.getElementById('geminiApiKeyInput').value = savedKey;
+            }
+        });
+        function saveApiKey() {
+            const key = document.getElementById('geminiApiKeyInput').value;
+            localStorage.setItem('geminiApiKey', key);
+            alert('API Key saved successfully!');
+        }
+    </script>
+</body>
+</html>
