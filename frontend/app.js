@@ -1,4 +1,4 @@
-const API_BASE = `http://${window.location.hostname}:8080/api`;
+const API_BASE = (window.location.port === '3000') ? `http://${window.location.hostname}:8080/api` : '/api';
 
 // Theme initialization
 function toggleDarkMode() {
